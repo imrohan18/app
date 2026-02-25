@@ -1,46 +1,117 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import '../models/soil_state.dart';
 
 class SoilHealthDashboardScreen extends StatelessWidget {
   const SoilHealthDashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final idealN = 420.0;
+    final idealP = 20.0;
+    final idealK = 200.0;
+    final idealPh = 7.0;
+    final idealOc = 0.75;
+    final s = SoilState.instance;
+    final percents = <double>[
+      _pct(s.n, idealN),
+      _pct(s.p, idealP),
+      _pct(s.k, idealK),
+      _pct(s.ph, idealPh),
+      _pct(s.oc, idealOc),
+    ].map((e) => e.clamp(0, 200)).toList();
     return Scaffold(
       appBar: AppBar(title: const Text('Soil Health Dashboard')),
       body: ListView(
         padding: const EdgeInsets.all(16),
-        children: const [
+        children: [
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.surface,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+            ),
+            child: AspectRatio(
+              aspectRatio: 1.1,
+              child: RadarChart(
+                RadarChartData(
+                  radarShape: RadarShape.polygon,
+                  tickCount: 4,
+                  ticksTextStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                    fontSize: 10,
+                  ),
+                  radarBorderData: const BorderSide(color: Colors.transparent),
+                  gridBorderData: BorderSide(
+                    color: Theme.of(context).colorScheme.outlineVariant,
+                    width: 1,
+                  ),
+                  titlePositionPercentageOffset: 0.18,
+                  getTitle: (index, angle) {
+                    const labels = ['N','P','K','pH','OC'];
+                    return RadarChartTitle(text: labels[index]);
+                  },
+                  dataSets: [
+                    RadarDataSet(
+                      dataEntries: const [
+                        RadarEntry(value: 100),
+                        RadarEntry(value: 100),
+                        RadarEntry(value: 100),
+                        RadarEntry(value: 100),
+                        RadarEntry(value: 100),
+                      ],
+                      fillColor: Colors.grey.shade300,
+                      borderColor: Colors.grey.shade400,
+                      entryRadius: 0,
+                      borderWidth: 2,
+                    ),
+                    RadarDataSet(
+                      dataEntries: percents
+                          .map((v) => RadarEntry(value: v as double))
+                          .toList(),
+                      fillColor: const Color(0xFF10B981).withValues(alpha: 0.25),
+                      borderColor: const Color(0xFF10B981),
+                      entryRadius: 2,
+                      borderWidth: 2,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
           _StatTile(
             title: 'Nitrogen',
             value: '70 ppm',
             status: 'Optimal',
             color: Colors.green,
           ),
-          _StatTile(
+          const _StatTile(
             title: 'Phosphorus',
             value: '30 ppm',
             status: 'Low',
             color: Colors.amber,
           ),
-          _StatTile(
+          const _StatTile(
             title: 'Potassium',
             value: '180 ppm',
             status: 'High',
             color: Colors.blue,
           ),
-          _StatTile(
+          const _StatTile(
             title: 'Soil pH',
             value: '6.5',
             status: 'Optimal',
             color: Colors.deepPurple,
           ),
-          _StatTile(
+          const _StatTile(
             title: 'Temperature',
             value: '28°C',
             status: 'Warm',
             color: Colors.red,
           ),
-          _StatTile(
+          const _StatTile(
             title: 'Humidity',
             value: '82%',
             status: 'High',
@@ -128,4 +199,9 @@ class _StatTile extends StatelessWidget {
       ),
     );
   }
+}
+
+double _pct(double current, double ideal) {
+  if (ideal == 0) return 0;
+  return (current / ideal) * 100;
 }

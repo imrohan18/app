@@ -3,6 +3,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:agrisense_fronted/l10n/app_localizations.dart';
 import 'fertilizer_advisory.dart';
 import 'soil_health_dashboard.dart';
+import '../models/soil_state.dart';
 
 class FieldsScreen extends StatelessWidget {
   const FieldsScreen({super.key});
@@ -129,6 +130,12 @@ class _HealthCheckTabState extends State<_HealthCheckTab> {
         _kController.text.isNotEmpty &&
         _phController.text.isNotEmpty &&
         _ocController.text.isNotEmpty) {
+      final nVal = double.tryParse(_nController.text) ?? 0;
+      final pVal = double.tryParse(_pController.text) ?? 0;
+      final kVal = double.tryParse(_kController.text) ?? 0;
+      final phVal = double.tryParse(_phController.text) ?? 0;
+      final ocVal = double.tryParse(_ocController.text) ?? 0;
+      SoilState.instance.update(n: nVal, p: pVal, k: kVal, ph: phVal, oc: ocVal);
       setState(() {
         _showChart = true;
       });
