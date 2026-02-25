@@ -2,6 +2,9 @@
 
 A new Flutter project.
 
+
+Link : √ Built build\app\outputs\flutter-apk\app-release.apk (47.9MB)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
