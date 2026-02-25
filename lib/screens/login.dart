@@ -10,8 +10,6 @@ class LoginScreen extends StatelessWidget {
     final primary = const Color(0xFFEC5B13);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.5,
         title: const Text(
           'AgriSense',
           style: TextStyle(fontWeight: FontWeight.bold),
@@ -304,7 +302,7 @@ class _LabeledField extends StatelessWidget {
             prefixIcon: Icon(icon),
             hintText: hint,
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Theme.of(context).colorScheme.surface,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
             ),

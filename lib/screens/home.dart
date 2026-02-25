@@ -7,8 +7,6 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0.5,
         titleSpacing: 0,
         title: Row(
           children: [
@@ -55,11 +53,14 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          const CircleAvatar(
-            backgroundColor: Color(0xFFE2E8F0),
-            radius: 20,
-            backgroundImage: NetworkImage(
-              'https://lh3.googleusercontent.com/aida-public/AB6AXuD85KzWPxSuaTkBOgYuNoTostwSazfqSesZVgk6mvZv_ooqd1VGkEn-ORw4rr42C60pw4GTT0F18gM2UYrsHEYdQs6uA1iimVenCCYsC6nIh4b-ZBKj1P0mPsoCnGwXyLD-fJ1_2OZRPCeEltZdu3y0N81wtsp6sIwWaxKGgGNN2EKKP1eBo3_iozTqrm0kayI9tvEo-RND1h9eY3SuxWQ-Yznj45q6v_jGstlHMLNsi1JOOd6cQb13eYURlAeqAoYMoBUNUYlGBk-d',
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, '/profile'),
+            child: const CircleAvatar(
+              backgroundColor: Color(0xFFE2E8F0),
+              radius: 20,
+              backgroundImage: NetworkImage(
+                'https://lh3.googleusercontent.com/aida-public/AB6AXuD85KzWPxSuaTkBOgYuNoTostwSazfqSesZVgk6mvZv_ooqd1VGkEn-ORw4rr42C60pw4GTT0F18gM2UYrsHEYdQs6uA1iimVenCCYsC6nIh4b-ZBKj1P0mPsoCnGwXyLD-fJ1_2OZRPCeEltZdu3y0N81wtsp6sIwWaxKGgGNN2EKKP1eBo3_iozTqrm0kayI9tvEo-RND1h9eY3SuxWQ-Yznj45q6v_jGstlHMLNsi1JOOd6cQb13eYURlAeqAoYMoBUNUYlGBk-d',
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -242,9 +243,9 @@ class _MetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
         boxShadow: const [
           BoxShadow(
             color: Color(0x0D000000),

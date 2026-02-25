@@ -8,19 +8,34 @@ import 'screens/soil_health_dashboard.dart';
 import 'screens/fields.dart';
 import 'screens/profile.dart';
 
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:agrisense_fronted/l10n/app_localizations.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'screens/settings.dart';
 
 void main() {
   runApp(const AgrisenseApp());
 }
+
+class ThemeController extends ChangeNotifier {
+  ThemeMode mode = ThemeMode.system;
+  void setMode(ThemeMode newMode) {
+    if (mode == newMode) return;
+    mode = newMode;
+    notifyListeners();
+  }
+}
+
+final themeController = ThemeController();
 
 class AgrisenseApp extends StatelessWidget {
   const AgrisenseApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return AnimatedBuilder(
+      animation: themeController,
+      builder: (context, _) {
+        return MaterialApp(
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -33,10 +48,34 @@ class AgrisenseApp extends StatelessWidget {
         Locale('es'), // Spanish
       ],
       debugShowCheckedModeBanner: false,
+      themeMode: themeController.mode,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF10B981)),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF10B981),
+          brightness: Brightness.light,
+        ),
         useMaterial3: true,
         fontFamily: 'sans-serif',
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
+          elevation: 0.5,
+        ),
+        scaffoldBackgroundColor: const Color(0xFFF8FAFC),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF10B981),
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+        fontFamily: 'sans-serif',
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF0B1215),
+          foregroundColor: Colors.white,
+          elevation: 0.5,
+        ),
+        scaffoldBackgroundColor: const Color(0xFF0B1215),
       ),
       home: const _Shell(),
       routes: {
@@ -45,6 +84,10 @@ class AgrisenseApp extends StatelessWidget {
         '/advisory': (_) => const FertilizerAdvisoryScreen(),
         '/crop-analysis': (_) => const CropAnalysisScreen(),
         '/soil-health': (_) => const SoilHealthDashboardScreen(),
+        '/profile': (_) => const ProfileScreen(),
+        '/settings': (_) => const SettingsScreen(),
+      },
+    );
       },
     );
   }
@@ -191,4 +234,3 @@ class _NavItem extends StatelessWidget {
     );
   }
 }
-

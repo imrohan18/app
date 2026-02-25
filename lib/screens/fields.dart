@@ -15,8 +15,12 @@ class FieldsScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(l10n.fieldsNav),
-          backgroundColor: Colors.white,
-          elevation: 0.5,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.person_outline),
+              onPressed: () => Navigator.pushNamed(context, '/profile'),
+            ),
+          ],
           bottom: TabBar(
             labelColor: const Color(0xFF10B981),
             unselectedLabelColor: Colors.grey,
@@ -141,7 +145,11 @@ class _HealthCheckTabState extends State<_HealthCheckTab> {
         children: [
           Text(
             l10n.enterValue,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: 16),
           _InputRow(label: l10n.nitrogen, controller: _nController),
@@ -383,9 +391,9 @@ class _FieldCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.02),

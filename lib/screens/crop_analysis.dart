@@ -33,6 +33,12 @@ class _CropAnalysisScreenState extends State<CropAnalysisScreen> {
       appBar: AppBar(
         title: const Text('Crop Analysis'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.person_outline),
+            onPressed: () => Navigator.pushNamed(context, '/profile'),
+          ),
+        ],
       ),
       body: ListView(
         controller: _scrollController,
