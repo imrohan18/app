@@ -1,0 +1,29 @@
+{
+  "appTitle": "AgriSense",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "loginButton": "Sign In",
+  "emailLabel": "Email Address",
+  "emailHint": "farmer@agrisense.ai",
+  "passwordLabel": "Password",
+  "passwordHint": "Enter your password",
+  "homeNav": "Home",
+  "analysisNav": "Analysis",
+  "fieldsNav": "Fields",
+  "profileNav": "Profile",
+  "soilHealth": "Soil Health",
+  "advisory": "Advisory",
+  "checkSoilHealth": "Check Soil Health",
+  "myFields": "My Fields",
+  "healthCheck": "Health Check",
+  "nitrogen": "Nitrogen (N)",
+  "phosphorus": "Phosphorus (P)",
+  "potassium": "Potassium (K)",
+  "pHLevel": "pH Level",
+  "organicCarbon": "Organic Carbon",
+  "compare": "Compare",
+  "ideal": "Ideal",
+  "yourValue": "Your Value",
+  "enterValue": "Enter value"
+}
